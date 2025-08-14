@@ -1,81 +1,108 @@
-Three-Tier Next.js Docker Deployment
+# 2-Tier Web Application (Next.js + Node.js/Express)
 
-This project demonstrates a standard three-tier enterprise-style application deployed using Docker.
+This project is a 2-tier architecture consisting of:
+- **Frontend:** Next.js (React framework)
+- **Backend:** Node.js + Express
+- **Database:** (Optional) MySQL/MongoDB — can be connected to the backend
 
-Architecture
-The application is composed of three main services:
+---
 
-1. Frontend: A Next.js application serving the user interface.
+## 📂 Project Structure
 
-2. Backend: A Node.js/Express API handling business logic and communicating with the database.
+3-tier/
+│
+├── backend/ # Node.js backend
+│ ├── Dockerfile
+│ ├── package.json
+│ └── server.js
+│
+├── frontend/ # Next.js frontend
+│ ├── pages/
+│ │ ├── index.js # Login page
+│ │ └── home.js # Home page after login
+│ ├── public/
+│ ├── styles/
+│ ├── package.json
+│ └── ...
 
-3. Database: A PostgreSQL database for persistent data storage.
+yaml
+C
 
+## 🛠️ Prerequisites
 
-All services are orchestrated using Docker Compose, configured to use a single internal network for secure communication.
+Make sure you have installed:
+- **Node.js** (>= 18)
+- **npm** (>= 8)
+- (Optional) **Docker** if containerizing
 
-Prerequisites
-Docker Desktop installed on your machine.
+---
 
-A code editor (e.g., VS Code).
+## 🚀 Getting Started
 
-Directory Structure
-To get started, create the following directory structure:
+### 1. Clone the repository
 
-.
-├── .env
-├── docker-compose.yml
-├── backend
-│   ├── Dockerfile
-│   ├── server.js
-│   └── package.json
-├── database
-│   └── Dockerfile
-└── frontend
-    ├── Dockerfile
-    ├── next.config.js
-    ├── package.json
-    └── app
-        └── page.js
+git clone <your-repo-url>
+cd 2-tier
+2. Start Backend
 
+cd backend
+npm install
+node server.js   # or: npm start (if configured in package.json)
+By default, the backend will run on:
 
-Setup and Deployment
-Step 1: Create the files
-Copy the contents of the immersive documents below into their respective files in the directory structure above.
+arduino
+http://localhost:5000
 
+3. Start Frontend
+bash
+cd ../frontend
+npm install
+npm run dev
+The frontend will start at:
 
-Step 2: Configure Environment Variables
-Create a .env file in the root directory and add the following environment variables. Do not hard-code these values in the code.
+arduino
+http://localhost:3000
 
-POSTGRES_USER=myuser
-POSTGRES_PASSWORD=mypassword
-POSTGRES_DB=mydb
+4. Directory Structure for Next.js Routing
+Frontend/pages/:
 
+pgsql
+Copy
+Edit
+index.js   →  Login page (accessible at /)
+home.js    →  Home page after login (accessible at /home)
+When login is successful, redirect to:
 
-Step 3: Build and Run
-From the root directory, run the following command to build the Docker images and start the containers.
+js
+router.push("/home");
+🖼️ Preview
+Login Page → Professional background image + styled login form
 
-docker-compose up --build
+Home Page → Background image + welcome message + "Go to Dashboard" button
 
-This command will:
+🐛 Troubleshooting
+404 Not Found on /home
 
-Build the frontend and backend images from their respective Dockerfiles.
+Ensure frontend/pages/home.js exists (Next.js automatically maps it to /home).
 
-Download the official PostgreSQL image.
+npm run dev gives error
 
-Start all three services.
+Run it inside the frontend folder, not backend.
 
-Create a named volume (postgres_data) for persistent database storage.
+tailwindcss: command not found
 
+Install locally: npm install -D tailwindcss postcss autoprefixer
 
-Step 4: Verify the Deployment
-Once the containers are running, you can access the Next.js frontend at http://localhost:3000.
+Initialize: npx tailwindcss init -p
 
-The frontend will attempt to fetch data from the backend API, which is running internally.
+📦 Build for Production
+Backend:
+bash
+cd backend
+npm install --production
 
-You can view the logs for each service using docker-compose logs <service_name>.
-
-To stop and remove the containers and the network, run:
-
-
-docker-compose down
+Frontend:
+bash
+cd frontend
+npm run build
+npm run start
