@@ -1,4 +1,4 @@
-# 2-Tier Web Application (Next.js + Node.js/Express)
+# 3-Tier Web Application (Next.js + Node.js/Express)
 
 This project is a 2-tier architecture consisting of:
 - **Frontend:** Next.js (React framework)
